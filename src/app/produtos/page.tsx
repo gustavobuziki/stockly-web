@@ -1,6 +1,4 @@
-import { TableProducts } from "@/components";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { DialogAddProduct, TableProducts } from "@/components";
 import { getProducts } from "../(DAL)/products/get-product";
 
 export default async function Products() {
@@ -17,12 +15,9 @@ export default async function Products() {
             Gestão de produtos
           </h3>
         </div>
-        <Button className="gap-2 bg-greenPrimary">
-          <Plus />
-          Novo produto
-        </Button>
+        <DialogAddProduct />
       </header>
-      <div className="radius my-4 rounded-sm bg-white p-2">
+      <div className="radius my-4 rounded-sm p-2">
         <TableProducts data={JSON.parse(JSON.stringify(allProducts))} />
       </div>
     </div>
