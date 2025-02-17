@@ -1,5 +1,5 @@
 import { DialogAddProduct, TableProducts } from "@/components";
-import { getProducts } from "../(DAL)/products/get-product";
+import { getProducts } from "./(DAL)/products/get-product";
 
 export default async function Products() {
   const allProducts = await getProducts();

@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${inter.className} flex antialiased`}>
         <Sidebar />
         <div className="w-full bg-slate-50 px-8">{children}</div>
