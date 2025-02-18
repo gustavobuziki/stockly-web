@@ -12,7 +12,7 @@ export function Sidebar() {
           <LayoutGrid size={20} className="text-greenPrimary" />
           <p className="text-sm text-greenPrimary">Dashboard</p>
         </SidebarItem>
-        <SidebarItem href="/produtos">
+        <SidebarItem href="/">
           <Package size={20} className="text-greenPrimary" />
           <p className="text-sm text-greenPrimary">Produtos</p>
         </SidebarItem>

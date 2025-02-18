@@ -27,10 +27,12 @@ import {
 } from "./ui/form";
 import { DialogClose, DialogDescription } from "@radix-ui/react-dialog";
 import { Input } from "./ui/input";
+import { createProduct } from "@/app/(actions)/create-product";
+import { useState } from "react";
 
 const schema = z.object({
-  nameProduct: z.string().trim().min(1, { message: "O nome é obrigatório!" }),
-  unitValue: z.number().min(0.01, { message: "O valor é obrigatório!" }),
+  name: z.string().trim().min(1, { message: "O nome é obrigatório!" }),
+  price: z.number().min(0.01, { message: "O valor é obrigatório!" }),
   stock: z.coerce
     .number()
     .positive({ message: "A quantidade em estoque deve ser positiva." })
@@ -38,7 +40,7 @@ const schema = z.object({
     .min(0, { message: "O estoque é obrigatório!" }),
 });
 
-export function DialogAddProduct() {
+export function DialogCreateProduct() {
   const form = useForm<TAddProduct>({
     shouldUnregister: true,
     resolver: zodResolver(schema),
@@ -49,12 +51,19 @@ export function DialogAddProduct() {
     },
   });
 
-  const onSubmit = (data: TAddProduct) => {
-    console.log(data);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
+  const onSubmit = async (data: TAddProduct) => {
+    try {
+      await createProduct(data);
+      setDialogIsOpen(false);
+    } catch (e) {
+      return e;
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus />
@@ -132,7 +141,11 @@ export function DialogAddProduct() {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button className="w-32" type="submit">
+              <Button
+                className="w-32"
+                type="submit"
+                disabled={form.formState.isSubmitting}
+              >
                 Salvar
               </Button>
             </DialogFooter>
