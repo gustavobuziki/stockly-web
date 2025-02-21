@@ -8,15 +8,15 @@ export function Sidebar() {
         <h1 className="text-2xl font-black text-greenPrimary">STOCKLY</h1>
       </div>
       <div className="flex flex-col gap-2 p-2">
-        <SidebarItem href="/dashboard">
+        <SidebarItem href="/">
           <LayoutGrid size={20} className="text-greenPrimary" />
           <p className="text-sm text-greenPrimary">Dashboard</p>
         </SidebarItem>
-        <SidebarItem href="/">
+        <SidebarItem href="/products">
           <Package size={20} className="text-greenPrimary" />
           <p className="text-sm text-greenPrimary">Produtos</p>
         </SidebarItem>
-        <SidebarItem href="/vendas">
+        <SidebarItem href="/sales">
           <ShoppingBasket size={20} className="text-greenPrimary" />
           <p className="text-sm text-greenPrimary">Vendas</p>
         </SidebarItem>

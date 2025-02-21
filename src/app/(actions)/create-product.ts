@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 interface Props {
   name: string;
@@ -17,5 +17,5 @@ export const createProduct = async ({ name, stock, price }: Props) => {
       price,
     },
   });
-  revalidatePath("/products");
+  revalidateTag("get-products");
 };

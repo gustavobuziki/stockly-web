@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Sidebar } from "@/components";
 
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,6 +25,8 @@ export default function RootLayout({
       <body className={`${inter.className} flex antialiased`}>
         <Sidebar />
         <div className="w-full bg-slate-50 px-8">{children}</div>
+
+        <Toaster />
       </body>
     </html>
   );

@@ -70,7 +70,7 @@ export function DialogCreateProduct() {
           Novo produto
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[410] w-[500px]">
+      <DialogContent className="max-h-[410] w-[400px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             <DialogHeader>
