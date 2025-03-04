@@ -53,7 +53,11 @@ export function DialogAddProduct() {
                   <FormItem>
                     <FormLabel>Nome do produto:</FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite o nome." {...field} />
+                      <Input
+                        placeholder="Digite o nome."
+                        {...field}
+                        autoFocus
+                      />
                     </FormControl>
                     <FormDescription>
                       {/* This is your public display name. */}
