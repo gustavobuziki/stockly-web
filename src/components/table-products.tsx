@@ -8,31 +8,54 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PopoverActionsProduct } from "@/components/popover-actions-product";
+import { Badge } from "@/components/ui/badge";
+import { Product } from "@prisma/client";
 
-export function TableProducts() {
+interface Props {
+  products: Product[];
+}
+
+export function TableProducts({ products }: Props) {
   return (
-    <div className="bg-white p-3 rounded-sm ">
+    <div className="bg-white p-3 rounded-sm">
       <Table className="bg-white">
         <TableCaption>Lista dos atuais produtos.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Produtos</TableHead>
-            <TableHead>Valor unitário</TableHead>
-            <TableHead>Estoque</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Ações</TableHead>
+            <TableHead accessKey="name">Produtos</TableHead>
+            <TableHead accessKey="price">Valor unitário</TableHead>
+            <TableHead accessKey="stock">Estoque</TableHead>
+            <TableHead accessKey="status">Status</TableHead>
+            <TableHead accessKey="actions">Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell>$250.00</TableCell>
-            <TableCell>
-              <PopoverActionsProduct />
-            </TableCell>
-          </TableRow>
+          {products.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>
+                {product.status === "IN_STOCK" ? (
+                  <Badge className="text-primary" variant="secondary">
+                    <div className="w-2 h-2 bg-primary rounded-full mx-2" />
+                    <span className="w-20">Em estoque</span>
+                  </Badge>
+                ) : (
+                  <Badge
+                    variant="outline"
+                    className="text-gray-600 bg-gray-100"
+                  >
+                    <div className="w-2 h-2 bg-gray-600 rounded-full mx-2" />
+                    <span className="w-20">Esgotado</span>
+                  </Badge>
+                )}
+              </TableCell>
+              <TableCell>
+                <PopoverActionsProduct />
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>

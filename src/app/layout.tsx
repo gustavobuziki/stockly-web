@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} w-full h-full antialiased flex`}>
         <Sidebar />
-        <div className="p-8 bg-gray-100 h-full w-full">{children}</div>
+        <div className="p-8 bg-zinc-100 h-full w-full">{children}</div>
       </body>
     </html>
   );
