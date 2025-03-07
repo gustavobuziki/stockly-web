@@ -23,11 +23,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { NumericFormat } from "react-number-format";
+
+const schema = z.object({
+  name: z.string().trim().min(1, { message: "Nome é obrigatório" }),
+  price: z.number().min(0.01, { message: "Preço é obrigatório" }),
+  stock: z.coerce
+    .number()
+    .positive({ message: "A quantidade em estoque deve ser positivo" })
+    .int()
+    .min(0, { message: "Quantidade é obrigatório" }),
+});
+
+type FormSchema = z.infer<typeof schema>;
 
 export function DialogAddProduct() {
-  const form = useForm();
+  const form = useForm<FormSchema>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: "",
+      price: 0,
+      stock: 1,
+    },
+  });
 
-  const onSubmit = (data: any) => {};
+  const onSubmit = (data: FormSchema) => {};
 
   return (
     <Dialog>
@@ -73,7 +95,20 @@ export function DialogAddProduct() {
                   <FormItem>
                     <FormLabel>Valor unitário</FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite o valor." {...field} />
+                      <NumericFormat
+                        thousandSeparator="."
+                        decimalSeparator=","
+                        fixedDecimalScale
+                        decimalScale={2}
+                        prefix="R$ "
+                        allowNegative={false}
+                        customInput={Input}
+                        onValueChange={(values) => {
+                          field.onChange(values.floatValue);
+                        }}
+                        {...field}
+                        onChange={() => {}}
+                      />
                     </FormControl>
                     <FormDescription>
                       {/* This is your public display name. */}
@@ -89,7 +124,11 @@ export function DialogAddProduct() {
                   <FormItem>
                     <FormLabel>Estoque</FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite o estoque." {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Digite o estoque."
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       {/* This is your public display name. */}
