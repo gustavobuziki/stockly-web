@@ -1,10 +1,10 @@
 import { DialogAddProduct } from "@/components/dialog-add-product";
 import { Header } from "@/components/header";
 import { TableProducts } from "@/components/table-products";
-import { getProducts } from "../(DAL)/get-products";
+import { cachedGetProducts } from "../(DAL)/get-products";
 
 export default async function Produtos() {
-  const products = await getProducts();
+  const products = await cachedGetProducts();
 
   return (
     <div className="space-y-6">

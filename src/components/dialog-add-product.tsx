@@ -21,11 +21,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PlusIcon } from "lucide-react";
+import { LoaderCircleIcon, PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NumericFormat } from "react-number-format";
+import { createProduct } from "@/app/(actions)/create-product";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "Nome é obrigatório" }),
@@ -48,11 +51,34 @@ export function DialogAddProduct() {
       stock: 1,
     },
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoadingCreateProduct, setIsLoadingCreateProduct] = useState(false);
 
-  const onSubmit = (data: FormSchema) => {};
+  const onSubmit = async (data: FormSchema) => {
+    setIsLoadingCreateProduct(true);
+
+    try {
+      await createProduct({ data });
+      form.reset();
+      setIsOpen(false);
+      toast("Produto criado com sucesso!", { type: "success" });
+    } catch {
+      toast("Erro ao criar produto!", { type: "error" });
+    } finally {
+      setIsLoadingCreateProduct(false);
+    }
+  };
 
   return (
-    <Dialog>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="default">
           <PlusIcon /> Novo produto
@@ -145,6 +171,9 @@ export function DialogAddProduct() {
                 </Button>
               </DialogClose>
               <Button type="submit" className="flex-1/2">
+                {isLoadingCreateProduct && (
+                  <LoaderCircleIcon className="animate-spin" />
+                )}
                 Criar produto
               </Button>
             </DialogFooter>

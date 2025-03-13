@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PopoverActionsProduct } from "@/components/popover-actions-product";
+import { MenuActionsProduct } from "@/components/menu-actions-product";
 import { Badge } from "@/components/ui/badge";
 import { Product } from "@prisma/client";
 
@@ -52,7 +52,7 @@ export function TableProducts({ products }: Props) {
                 )}
               </TableCell>
               <TableCell>
-                <PopoverActionsProduct />
+                <MenuActionsProduct product={product} />
               </TableCell>
             </TableRow>
           ))}

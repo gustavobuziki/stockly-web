@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/sidebar";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,10 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${inter.className} w-full h-full antialiased flex`}>
         <Sidebar />
         <div className="p-8 bg-zinc-100 h-full w-full">{children}</div>
+        <ToastContainer theme="light" />
       </body>
     </html>
   );
