@@ -11,6 +11,10 @@
 
 html {
   @apply h-screen w-screen;
+
+  button {
+    cursor: pointer;
+  }
 }
 
 :root {

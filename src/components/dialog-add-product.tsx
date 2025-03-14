@@ -29,6 +29,7 @@ import { NumericFormat } from "react-number-format";
 import { createProduct } from "@/app/(actions)/create-product";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = z.object({
   name: z.string().trim().min(1, { message: "Nome é obrigatório" }),
@@ -41,6 +42,11 @@ const schema = z.object({
 });
 
 type FormSchema = z.infer<typeof schema>;
+
+const customToastStyle = {
+  background: "#01a082",
+  color: "#fff",
+};
 
 export function DialogAddProduct() {
   const form = useForm<FormSchema>({
@@ -61,7 +67,10 @@ export function DialogAddProduct() {
       await createProduct({ data });
       form.reset();
       setIsOpen(false);
-      toast("Produto criado com sucesso!", { type: "success" });
+      toast("Produto criado com sucesso!", {
+        type: "success",
+        style: customToastStyle,
+      });
     } catch {
       toast("Erro ao criar produto!", { type: "error" });
     } finally {
