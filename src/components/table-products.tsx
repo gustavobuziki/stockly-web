@@ -33,7 +33,12 @@ export function TableProducts({ products }: Props) {
           {products.map((product) => (
             <TableRow key={product.id}>
               <TableCell>{product.name}</TableCell>
-              <TableCell>{product.price}</TableCell>
+              <TableCell>
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(Number(product.price))}
+              </TableCell>
               <TableCell>{product.stock}</TableCell>
               <TableCell>
                 {product.status === "IN_STOCK" ? (

@@ -1,7 +1,7 @@
-import { DialogAddProduct } from "@/components/dialog-add-product";
 import { Header } from "@/components/header";
 import { TableProducts } from "@/components/table-products";
 import { cachedGetProducts } from "../(DAL)/get-products";
+import { DialogAddProduct } from "@/components/dialog-add-product";
 
 export default async function Produtos() {
   const products = await cachedGetProducts();

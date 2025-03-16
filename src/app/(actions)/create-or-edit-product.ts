@@ -4,6 +4,7 @@ import { db } from "@/lib/prisma";
 import { revalidateTag } from "next/cache";
 
 interface Props {
+  id?: string;
   data: {
     name: string;
     price: number;
@@ -11,8 +12,14 @@ interface Props {
   };
 }
 
-export const createProduct = async ({ data }: Props) => {
-  await db.product.create({ data });
+export const createOrEditProduct = async ({ data, id }: Props) => {
+  await db.product.upsert({
+    where: {
+      id: id || "",
+    },
+    update: data,
+    create: data,
+  });
 
   revalidateTag("get-products");
 };
