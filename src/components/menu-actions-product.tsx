@@ -101,7 +101,9 @@ export function MenuActionsProduct({ product }: Props) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={onDelete}>Confirmar</AlertDialogAction>
+            <AlertDialogAction onClick={onDelete} autoFocus>
+              Confirmar
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

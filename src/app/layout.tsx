@@ -22,7 +22,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${inter.className} w-full h-full antialiased flex`}>
         <Sidebar />
-        <div className="p-8 bg-zinc-100 h-full w-full">{children}</div>
+        <div className="p-8 bg-zinc-100 h-full w-full overflow-y-auto">
+          {children}
+        </div>
         <ToastContainer theme="light" hideProgressBar />
       </body>
     </html>
